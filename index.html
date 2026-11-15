@@ -48,7 +48,7 @@ async function open_(pw){
   const out=await crypto.subtle.decrypt({name:'AES-GCM',iv:b64(D.i)},key,b64(D.c));
   return new TextDecoder().decode(out);
 }
-function show(html){document.open();document.write(html);document.close()}
+function show(html){html=html.replace('<head>','<head>\n<link rel="manifest" href="manifest.json">\n<link rel="icon" type="image/png" href="icon-192.png">\n<link rel="apple-touch-icon" href="icon-192.png">');document.open();document.write(html);document.close()}
 const KEY='bs_session';
 (async()=>{let saved=null;try{saved=localStorage.getItem(KEY)}catch(e){}
   if(saved){try{show(await open_(saved));return}catch(e){try{localStorage.removeItem(KEY)}catch(_){}}}})();
